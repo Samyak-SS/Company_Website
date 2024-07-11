@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import NavBar from './components/NavBar';
 
 const BlogInspect = () => {
   const { id } = useParams();
@@ -89,6 +90,7 @@ const BlogInspect = () => {
 
   return (
     <>
+      <NavBar/>
       <div className='flex justify-between p-5 bg-[#f9f9f9]'>
         <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleAccept}>Approve</button>
         <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleReject}>Reject</button>
@@ -114,6 +116,7 @@ const BlogInspect = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

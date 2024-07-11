@@ -1,12 +1,6 @@
-import { HomePage } from "./HomePage";
-import BlogContentPage from "./BlogContentPage";
-import BlogInspectPage from "./BlogInspectPage";
-import UnderReviewPage from "./UnderReviewPage";
-
-
-export{
-    HomePage,
-    BlogContentPage,
-    BlogInspectPage,
-    UnderReviewPage
-}
+// src/pages/index.js
+export { default as HomePage } from './HomePage';
+export { default as BlogContentPage } from './BlogContentPage';
+export { default as BlogInspectPage } from './BlogInspectPage';
+export { default as UnderReviewPage } from './UnderReviewPage';
+export { default as FinalMainPage } from './FinalMainPage';

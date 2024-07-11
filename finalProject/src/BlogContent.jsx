@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 
 const BlogContent = () => {
   const { id } = useParams();
@@ -40,6 +42,8 @@ const BlogContent = () => {
   }
 
   return (
+    <>
+    <NavBar/>
     <div className='w-full pb-10 bg-[#f9f9f9]'>
       <div className='max-w-[1240px] mx-auto'>
         <div className='grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 ss:grid-cols-1 gap-8 px-8 sm:pt-20 md:mt-0 ss:pt-20 text-black '>
@@ -61,6 +65,8 @@ const BlogContent = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }
 

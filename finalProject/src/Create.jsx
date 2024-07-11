@@ -102,6 +102,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './createStyle.css'
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 
 const Create = () => {
   const [title, setTitle] = useState("");
@@ -136,7 +138,9 @@ const Create = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <>
+    <NavBar/>
+    <div className="flex items-center justify-center h-screen pt-20">
       <div className="w-full max-w-md bg-[#f9f9f9] p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-6">Add a New Blog</h2>
         <form onSubmit={handleSubmit}>
@@ -190,6 +194,8 @@ const Create = () => {
         </form>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 
