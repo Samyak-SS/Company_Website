@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
+import NavBar from './components/NavBar';
 
 const ListOfBlogs = () => {
 
@@ -29,8 +30,9 @@ const ListOfBlogs = () => {
   
     return (
     // whole body
-    <>    
-    <h1>List of blogs</h1>
+    <> 
+    <NavBar/>   
+    <h1 className='p-20'>List of blogs</h1>
     
     <div className='w-full bg-[#f9f9f9] py-[50px]'>  
         {/* middle section where blog is present */}
@@ -42,7 +44,7 @@ const ListOfBlogs = () => {
 
                 <Link  key={blog.id} to={`/bloginspect/${blog.id}`}>
                     <div className='bg-white rounded-xl overflow-hidden drop-shadow-md'>
-                    <img className=' h-48 w-full object-cover' src={blog.coverImg} />
+                    <img className=' h-48 w-full object-cover' src={blog.image} />
                     <div className='p-8'>
                         <h3 className='font-bold text-2xl my-1'>{blog.title}</h3>
 
@@ -65,7 +67,7 @@ const ListOfBlogs = () => {
 
     </div>
 
-    <Link to="/"><button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded p-8 m-8'>Go Back</button></Link>
+    <Link to="/bloghome"><button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded p-8 m-8'>Go Back</button></Link>
     </>
   )
 }

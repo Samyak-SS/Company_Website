@@ -2,6 +2,7 @@ import express from 'express';
 import BlogRoutes from './routes/BlogRoutes.js'; // Import upload
 import pkg from 'pg';
 const { Pool } = pkg;
+import multer from 'multer';
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON bodies
@@ -26,8 +27,13 @@ async function testConnection() {
 }
 
 testConnection();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-app.use("/api/v1", BlogRoutes);
+// app.use("/api/v1", BlogRoutes);
+app.use("/api/v1", BlogRoutes(upload));
+
+
 
 // // Route for uploading an image with additional data
 // app.post('/upload', upload.single('image'), async (req, res) => {
@@ -50,4 +56,4 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-export { pool };
+export { pool, upload };

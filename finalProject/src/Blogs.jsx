@@ -41,7 +41,7 @@ const Blogs = () => {
                         {blogs.map((blog) => (
                             <Link key={blog.id || Math.random()} to={`/blog/${blog.id}`}>
                                 <div className='bg-white rounded-xl overflow-hidden drop-shadow-md'>
-                                    <img className='h-48 w-full object-cover' src={blog.coverImg} alt={blog.title} />
+                                    <img className='h-48 w-full object-cover' src={blog.image} alt={blog.title} />
                                     <div className='p-8'>
                                         <h3 className='font-bold text-2xl my-1'>{blog.title}</h3>
                                         <p className='text-gray-600 text-xl'>{blog.description}</p>

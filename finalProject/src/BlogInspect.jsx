@@ -91,7 +91,7 @@ const BlogInspect = () => {
   return (
     <>
       <NavBar/>
-      <div className='flex justify-between p-5 bg-[#f9f9f9]'>
+      <div className='flex justify-between p-20 bg-[#f9f9f9]'>
         <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleAccept}>Approve</button>
         <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleReject}>Reject</button>
       </div>
@@ -101,7 +101,7 @@ const BlogInspect = () => {
             {/* Blog img and content */}
             <div className='col-span-2 bg-white p-8'>
               {/* height is set to auto might need to change */}
-              <img className="h-auto w-full object-cover shadow-md" src={blog.coverImg} alt="Blog Cover" />
+              <img className="h-auto w-full object-cover shadow-md" src={blog.image} alt="Blog Cover" />
               <h1 className='font-bold text-2xl my-1 pt-5'>{blog.title}</h1>
               <div className='pt-5'><p>{blog.content}</p></div>
             </div>
@@ -116,7 +116,6 @@ const BlogInspect = () => {
           </div>
         </div>
       </div>
-      <Footer/>
     </>
   );
 };

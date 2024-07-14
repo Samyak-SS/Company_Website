@@ -1,16 +1,39 @@
+// // BlogRoutes.js
+// import express from "express";
+// import { Login, sendblogs, takeblog, sendblogsAdmin, blogsAdminBoolean } from '../controllers/BlogControllers.js';
+// import { upload } from '../server.js';
+
+
+// const router = express.Router();
+
+// router.route("/takeblogs").post(takeblog);
+// router.route("/sendblogs").get(sendblogs);
+// router.route("/sendblogsAdmin").get(sendblogsAdmin);
+// router.route("/blogsAdminBoolean").post(blogsAdminBoolean);
+// router.route("/login").post(Login);
+// // router.route("/admin").post(showblogs);
+
+
+// export default router;
+
 // BlogRoutes.js
 import express from "express";
-import { Login, sendblogs, showblogs, takeblog, sendblogsAdmin, blogsAdminBoolean } from '../controllers/BlogControllers.js';
+import { Login, sendblogs, takeblog, sendblogsAdmin, blogsAdminBoolean, updateBlogAdmin, saveMessage, showMessages, fetchBlogImages } from '../controllers/BlogControllers.js';
 
+const BlogRoutes = (upload) => {
+    const router = express.Router();
 
-const router = express.Router();
+    router.route("/takeblogs").post(upload.single('image'), takeblog);
+    router.route("/sendblogs").get(sendblogs);
+    router.route("/sendblogsAdmin").get(sendblogsAdmin);
+    router.route("/blogsAdminBoolean").post(blogsAdminBoolean);
+    router.route("/login").post(Login);
+    router.route("/showMessages").post(showMessages);
+    router.route("/updateBlogAdmin").post(updateBlogAdmin);
+    router.route("/saveMessage").post(saveMessage);
+    router.route("/fetchBlogImages").get(fetchBlogImages);
 
-router.route("/takeblogs").post(takeblog);
-router.route("/sendblogs").get(sendblogs);
-router.route("/sendblogsAdmin").get(sendblogsAdmin);
-router.route("/blogsAdminBoolean").post(blogsAdminBoolean);
-router.route("/login").post(Login);
-router.route("/admin").post(showblogs);
+    return router;
+};
 
-
-export default router;
+export default BlogRoutes;

@@ -1,9 +1,35 @@
 import { pool } from '../server.js';
 
+// export const sendblogs = async (req, res) => {
+//     try {
+//         const result = await pool.query('SELECT * FROM blog_posts WHERE published = TRUE;');
+        
+//         if (result.rows.length === 0) {
+//             console.log("No record found");
+//             res.status(404).send({
+//                 success: false,
+//                 message: 'No records found'
+//             });
+//         } else {
+//             res.status(200).json({
+//                 success: true,
+//                 data: result.rows
+//             });
+//         }
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send({
+//             success: false,
+//             message: "Error in Get All Blog Posts API",
+//             error
+//         });
+//     }
+// };
+
 export const sendblogs = async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM blog_posts WHERE published = TRUE;');
-        
+
         if (result.rows.length === 0) {
             console.log("No record found");
             res.status(404).send({
@@ -11,9 +37,18 @@ export const sendblogs = async (req, res) => {
                 message: 'No records found'
             });
         } else {
+            // Convert BYTEA to base64
+            const blogs = result.rows.map(blog => {
+                if (blog.image) {
+                    // Convert the buffer to base64
+                    blog.image = `data:image/jpeg;base64,${blog.image.toString('base64')}`;
+                }
+                return blog;
+            });
+
             res.status(200).json({
                 success: true,
-                data: result.rows
+                data: blogs
             });
         }
     } catch (error) {
@@ -26,10 +61,11 @@ export const sendblogs = async (req, res) => {
     }
 };
 
+
 export const sendblogsAdmin = async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM blog_posts WHERE published = FALSE;');
-        
+
         if (result.rows.length === 0) {
             console.log("No record found");
             res.status(404).send({
@@ -37,9 +73,18 @@ export const sendblogsAdmin = async (req, res) => {
                 message: 'No records found'
             });
         } else {
+            // Convert BYTEA to base64
+            const blogs = result.rows.map(blog => {
+                if (blog.image) {
+                    // Convert the buffer to base64
+                    blog.image = `data:image/jpeg;base64,${blog.image.toString('base64')}`;
+                }
+                return blog;
+            });
+
             res.status(200).json({
                 success: true,
-                data: result.rows
+                data: blogs
             });
         }
     } catch (error) {
@@ -51,6 +96,10 @@ export const sendblogsAdmin = async (req, res) => {
         });
     }
 };
+
+
+
+
 
 export const blogsAdminBoolean = async (req, res) => {
     try {
@@ -142,16 +191,13 @@ export const Login = async (req, res) => {
     }
 };
 
-export const showblogs = (req, res) => {
-    const databasequery = ['1', '2', '3', '4', '5']
-
-    res.send()
-}
-
 
 export const takeblog = async (req, res) => {
     try {
-        const { title, content, image, description, author, date_time} = req.body;
+        const { title, content, description, author, date_time} = req.body;
+        const image = req.file.buffer;
+
+
         console.log( title, content, image, description, author, date_time);
         if ( !title || !author || !content || !image || !description || !date_time) {
             res.send("Data is missing");
@@ -180,6 +226,134 @@ export const takeblog = async (req, res) => {
         res.status(500).send({
             success: false,
             message: "Error in saving blog post",
+            error
+        });
+    }
+};
+
+export const updateBlogAdmin = async (req, res) => {
+    try {
+        const { id, title, content, image, description, author, date_time } = req.body;
+        if (!id || !title || !author || !content || !image || !description || !date_time) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required'
+            });
+        }
+        const result = await pool.query(
+            'UPDATE blog_posts SET title = $1, author = $2, date_time = $3, content = $4, image = $5, description = $6 WHERE id = $7 RETURNING *',
+            [title, author, date_time, content, image, description, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'Blog post not found'
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Blog post updated successfully',
+            data: result.rows[0]
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Error updating blog post',
+            error
+        });
+    }
+};
+
+export const saveMessage = async (req, res) => {
+    try {
+        const { name, email, date_time, subject, content } = req.body;
+        console.log( name, email, date_time, subject, content);
+        if ( !name || !email ||  !date_time ||  !subject ||  !content) {
+            res.send("Data is missing");
+            return;
+        }
+        const result = await pool.query(
+            'INSERT INTO messages (name, email, date_time, subject, content) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+            [name, email, date_time, subject, content]
+        );
+        if (!result) {
+            console.log("No data saved");
+            res.status(404).send({
+                success: false,
+                message: 'Error inside query'
+            });
+            return;
+        }
+        res.status(201).send({
+            success: true,
+            message: 'Data saved successfully',
+            data: result.rows[0]
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in saving blog post",
+            error
+        });
+    }
+};
+
+export const showMessages = async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM messages ;');
+        
+        if (result.rows.length === 0) {
+            console.log("No record found");
+            res.status(404).send({
+                success: false,
+                message: 'No records found'
+            });
+        } else {
+            res.status(200).json({
+                success: true,
+                data: result.rows
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in Show Messages API",
+            error
+        });
+    }
+};
+
+export const fetchBlogImages = async (req, res) => {
+    try {
+        const result = await pool.query('SELECT id, image FROM blog_posts WHERE published = FALSE;');
+
+        if (result.rows.length === 0) {
+            console.log("No images found");
+            res.status(404).send({
+                success: false,
+                message: 'No images found'
+            });
+        } else {
+            const images = result.rows.map(blog => {
+                return {
+                    id: blog.id,
+                    image: `data:image/jpeg;base64,${blog.image.toString('base64')}`
+                };
+            });
+
+            res.status(200).json({
+                success: true,
+                data: images
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in Fetch Blog Images API",
             error
         });
     }
