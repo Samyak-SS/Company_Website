@@ -65,8 +65,6 @@ const UpdateBlog2 = () => {
             id,
             title,
             content,
-            authorName,
-            authorImg,
             image,
             description: blogg.description, // Ensure description is included
             date_time: blogg.date_time // Ensure date_time is included

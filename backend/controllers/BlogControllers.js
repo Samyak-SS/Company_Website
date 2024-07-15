@@ -231,18 +231,53 @@ export const takeblog = async (req, res) => {
     }
 };
 
+// export const updateBlogAdmin = async (req, res) => {
+//     try {
+//         const { id, title, content, image, description, author, date_time } = req.body;
+//         if (!id || !title || !author || !content || !image || !description || !date_time) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: 'All fields are required'
+//             });
+//         }
+//         const result = await pool.query(
+//             'UPDATE blog_posts SET title = $1, author = $2, date_time = $3, content = $4, image = $5, description = $6 WHERE id = $7 RETURNING *',
+//             [title, author, date_time, content, image, description, id]
+//         );
+//         if (result.rows.length === 0) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: 'Blog post not found'
+//             });
+//         }
+//         res.status(200).json({
+//             success: true,
+//             message: 'Blog post updated successfully',
+//             data: result.rows[0]
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Error updating blog post',
+//             error
+//         });
+//     }
+// };
+
 export const updateBlogAdmin = async (req, res) => {
     try {
-        const { id, title, content, image, description, author, date_time } = req.body;
-        if (!id || !title || !author || !content || !image || !description || !date_time) {
+        const { id } = req.params; // Extract id from req.params
+        const { title, content, description,image, author, date_time } = req.body;
+        if (!id || !title || !image || !content || !description || !date_time) {
             return res.status(400).json({
                 success: false,
                 message: 'All fields are required'
             });
         }
         const result = await pool.query(
-            'UPDATE blog_posts SET title = $1, author = $2, date_time = $3, content = $4, image = $5, description = $6 WHERE id = $7 RETURNING *',
-            [title, author, date_time, content, image, description, id]
+            'UPDATE blog_posts SET title = $1, image = $2, date_time = $3, content = $4, description = $5 WHERE id = $6 RETURNING *',
+            [title, image ,date_time, content, description, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -264,6 +299,7 @@ export const updateBlogAdmin = async (req, res) => {
         });
     }
 };
+
 
 export const saveMessage = async (req, res) => {
     try {
