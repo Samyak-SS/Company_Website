@@ -50,7 +50,7 @@ const BlogContent = () => {
           {/* Blog img and content */}
           <div className='col-span-2 bg-white p-8'>
             {/* height is set to auto might need to change */}
-            <img className="h-auto w-full object-cover shadow-md" src={blog.image} alt={blog.title} />
+            <img className="h-48 w-full object-cover shadow-md" src={blog.image} alt={blog.title} />
             <h1 className='font-bold text-2xl my-1 pt-5'>{blog.title}</h1>
             <div className='pt-5'><p>{blog.content}</p></div>
           </div>

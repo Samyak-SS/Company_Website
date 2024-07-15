@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 // import axios from 'axios';
 
-const Blogs = () => {
+const BlogsForAdmin = () => {
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
@@ -28,15 +28,15 @@ const Blogs = () => {
     }, []);
 
     return (
-        // whole body
+        // whole bxody
         <>
-            
+            <h1>Blogs For Admin</h1>
             <div className='w-full bg-[#f9f9f9] py-[50px]'>
                 {/* middle section where blog is present */}
                 <div className='max-w-[1240px] mx-auto '>
                     <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-8 px-4 text-black'>
                         {blogs.map((blog) => (
-                            <Link key={blog.id || Math.random()} to={`/blog/${blog.id}`}>
+                            <Link  key={blog.id} to={`/updateblog2/${blog.id}`}>
                                 <div className='bg-white rounded-xl overflow-hidden drop-shadow-md'>
                                     <img className='h-48 w-full object-cover' src={blog.image} alt={blog.title} />
                                     <div className='p-8'>
@@ -55,4 +55,4 @@ const Blogs = () => {
     )
 }
 
-export default Blogs;
+export default BlogsForAdmin;

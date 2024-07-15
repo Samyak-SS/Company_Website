@@ -4,7 +4,9 @@ import LoginPage from "./loginPage";
 import Create from "./Create";
 import ListOfBlogs from "./ListOfBlogs";
 import BlogInspect from "./BlogInspect";
+import BlogsForAdmin from "./BlogsForAdmin";
+import UpdateBlog2 from "./UpdateBlog2";
 
 export{
-    Blogs,BlogContent,LoginPage,Create,ListOfBlogs,BlogInspect
+    Blogs,BlogContent,LoginPage,Create,ListOfBlogs,BlogInspect,BlogsForAdmin,UpdateBlog2
 }

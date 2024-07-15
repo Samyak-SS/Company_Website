@@ -27,7 +27,7 @@ const LoginPage = () => {
           const data = await response.json();
           console.log('Login successful!', data);
           // Handle successful login (e.g., save token in localStorage, update state)
-          navigate('/listofblogs');  
+          navigate('/adminpage');  
 
         } catch (error) {
           console.error('Login failed:', error.message);

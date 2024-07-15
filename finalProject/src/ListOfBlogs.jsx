@@ -31,7 +31,7 @@ const ListOfBlogs = () => {
     return (
     // whole body
     <> 
-    <NavBar/>   
+    
     <h1 className='p-20'>List of blogs</h1>
     
     <div className='w-full bg-[#f9f9f9] py-[50px]'>  
@@ -42,7 +42,7 @@ const ListOfBlogs = () => {
                 
                 {blogs.map((blog)=>
 
-                <Link  key={blog.id} to={`/bloginspect/${blog.id}`}>
+                <Link  key={blog.id} to={`/updateblog/${blog.id}`}>
                     <div className='bg-white rounded-xl overflow-hidden drop-shadow-md'>
                     <img className=' h-48 w-full object-cover' src={blog.image} />
                     <div className='p-8'>
@@ -67,7 +67,7 @@ const ListOfBlogs = () => {
 
     </div>
 
-    <Link to="/bloghome"><button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded p-8 m-8'>Go Back</button></Link>
+    {/* <Link to="/bloghome"><button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded p-8 m-8'>Go Back</button></Link> */}
     </>
   )
 }
