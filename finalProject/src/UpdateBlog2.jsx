@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer'
 
 const UpdateBlog2 = () => {
     const { id } = useParams();
@@ -17,7 +18,7 @@ const UpdateBlog2 = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [authorName, setAuthorName] = useState('');
-    const [authorImg, setAuthorImg] = useState('');
+    
     const [image, setImage] = useState('');
 
     const [isPending, setIsPending] = useState(true);
@@ -47,7 +48,7 @@ const UpdateBlog2 = () => {
                     setTitle(blog.title);
                     setContent(blog.content);
                     setAuthorName(blog.authorName);
-                    setAuthorImg(blog.authorImg);
+                    
                     setImage(blog.image);
 
                     console.log(blog);
@@ -65,7 +66,7 @@ const UpdateBlog2 = () => {
             id,
             title,
             content,
-            image,
+            
             description: blogg.description, // Ensure description is included
             date_time: blogg.date_time // Ensure date_time is included
         };
@@ -88,6 +89,7 @@ const UpdateBlog2 = () => {
 
             console.log('Blog updated successfully');
             setEditable(false);
+            window.location.reload()
         } catch (error) {
             console.error('Error updating blog:', error);
             console.log(updatedBlog)
@@ -141,56 +143,68 @@ const UpdateBlog2 = () => {
             console.error('Error updating status:', error);
         }
 
-        navigate('/listofblogs');
+        navigate('/adminpage');
     };
-
+    
+    const formatDate = (isoString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(isoString).toLocaleDateString(undefined, options);
+    };
     return (
         <>
             <NavBar />
-            <div className='p-20'>
+            <div className='pt-20'>
                 {isPending && <div>Loading....</div>}
                 {!isPending && blogg && (
-                    <div className='w-full bg-[#f9f9f9]'>
-                        <div className='max-w-[1240px] mx-auto'>
-                            <div className='grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 ss:grid-cols-1 gap-8 px-8 sm:pt-20 md:mt-0 ss:pt-20 text-black '>
-                                <div className='col-span-2 bg-white p-8'>
-                                    <img className="h-80 w-full object-cover shadow-md" src={blogg.image} alt="Blog Cover" />
+                    <div className='w-full  max-w-[1240px] mx-auto '>
+                        
+                        <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 ss:grid-cols-1 gap-8 px-8 sm:p-10  md:mt-0 ss:p-10 text-black justify-center items-center pt-5 pb-5 '>
+                                < div className='col-span-2 p-2 '>
+                                <img className="w-full sm:h-64 md:h-80 lg:h-96 object-cover shadow-md bg-black mb-10" src={blogg.image} alt="Blog Cover" />
                                     {editable ? (
                                         <>
-                                            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 my-2" />
-                                            <textarea value={content} onChange={(e) => setContent(e.target.value)} className="w-full p-2 my-2"></textarea>
+                                            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 my-2 border    border-gray-600 " />
+                                            <textarea value={content} onChange={(e) => setContent(e.target.value)} className="w-full rows-10 cols-50 p-4 my-2 h-64 border border-gray-600 rounded-lg"></textarea>
                                         </>
                                     ) : (
                                         <>
-                                            <h1 className='font-bold text-2xl my-1 pt-5'>{blogg.title}</h1>
-                                            <div className='pt-5'><p>{blogg.content}</p></div>
+                                            <h1 className='font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif'>{blogg.title}</h1>
+                                            <p className='font-normal text-gray-600 mt-5'>by {blogg.author}</p>
+                                            <p className='text-gray-600'>{formatDate(blogg.date_time)}</p>
+                                            <div className='mt-10 font-mono '><p className='whitespace-pre-wrap break-words'>{blogg.content}</p></div>
                                         </>
                                     )}
                                 </div>
 
-                                <div className='w-full rounded-xl overflow-hidden drop-shadow-md py-5 max-h-[250px] bg-white'>
-                                    <div className='px-6 sm:px-10 md:px-14 ss:px-6'>
-                                        <img className='p-2 w-32 h-32 rounded-full object-cover mx-auto' src={blogg.authorImg} alt="Author" />
-                                        {editable ? (
-                                            <>
-                                                <input type="text" value={authorName} onChange={(e) => setAuthorName(e.target.value)} className="w-full p-2 my-2" />
-                                                <input type="text" value={authorImg} onChange={(e) => setAuthorImg(e.target.value)} className="w-full p-2 my-2" />
-                                            </>
-                                        ) : (
-                                            <h1 className='font-bold text-2xl text-center text-gray-900 pt-1'>{blogg.authorName}</h1>
-                                        )}
-                                    </div>
-                                </div>
+                                
                             </div>
-                        </div>
+                        
                     </div>
                 )}
-                <div className="mt-4">
-                    <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => setEditable(!editable)}>Edit</button>
-                    {editable && <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' onClick={handleSave}>Save</button>}
-                    <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleReject}>Delete</button>
-                </div>
-            </div>
+                 <div className="mt-4 flex justify-center space-x-4">
+            <button
+                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+                onClick={() => setEditable(!editable)}
+            >
+                Edit
+            </button>
+            {editable && (
+                <button
+                    className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+                    onClick={handleSave}
+                >
+                    Save
+                </button>
+            )}
+            <button
+                className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+                onClick={handleReject}
+            >
+                Delete
+            </button>
+        </div>
+        </div>
+        <Footer/>
         </>
     );
 };

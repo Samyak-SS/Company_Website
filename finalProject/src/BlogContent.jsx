@@ -37,6 +37,11 @@ const BlogContent = () => {
   blog = blog[0];
   console.log(blog);
 
+  const formatDate = (isoString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(isoString).toLocaleDateString(undefined, options);
+};
+
   if (!blog) {
     return <div>Loading...</div>;
   }
@@ -44,24 +49,22 @@ const BlogContent = () => {
   return (
     <>
     <NavBar/>
-    <div className='w-full pb-10 bg-[#f9f9f9]'>
+    <br></br><br /><br />
+    <div className='w-full pb-20 bg-[#f9f9f9]'>
       <div className='max-w-[1240px] mx-auto'>
-        <div className='grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 ss:grid-cols-1 gap-8 px-8 sm:pt-20 md:mt-0 ss:pt-20 text-black '>
+      <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 ss:grid-cols-1 gap-8 px-8 sm:p-10  md:mt-0 ss:p-10 text-black justify-center items-center pt-5 pb-5 '>
           {/* Blog img and content */}
-          <div className='col-span-2 bg-white p-8'>
+          < div className='col-span-2 p-2 '>
             {/* height is set to auto might need to change */}
-            <img className="h-48 w-full object-cover shadow-md" src={blog.image} alt={blog.title} />
-            <h1 className='font-bold text-2xl my-1 pt-5'>{blog.title}</h1>
-            <div className='pt-5'><p>{blog.content}</p></div>
+            <img className="w-full sm:h-64 md:h-80 lg:h-96 object-cover shadow-md bg-black mb-10" src={blog.image} alt={blog.title} />
+            <h1 className='font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif'>{blog.title}</h1>
+            <p className='font-normal text-gray-600 mt-5'>by {blog.author}</p>
+            <p className='text-gray-600'>{formatDate(blog.date_time)}</p>
+            <div className='mt-10 font-mono '><p className='whitespace-pre-wrap break-words'>{blog.content}</p></div>
           </div>
 
           {/* author info card */}
-          <div className='w-full rounded-xl overflow-hidden drop-shadow-md py-5 max-h-[250px] bg-white'>
-            <div className='px-6 sm:px-10 md:px-14 ss:px-6'>
-              <img className='p-2 w-32 h-32 rounded-full object-cover mx-auto' src={blog.authorImg} alt={blog.author} />
-              <h1 className='font-bold text-2xl text-center text-gray-900 pt-1'>{blog.author}</h1>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>

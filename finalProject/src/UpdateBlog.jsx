@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 
 const UpdateBlog = () => {
     const { id } = useParams();
@@ -17,8 +18,10 @@ const UpdateBlog = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [authorName, setAuthorName] = useState('');
-    const [authorImg, setAuthorImg] = useState('');
+    
     const [image, setImage] = useState('');
+
+    const [isPending, setIsPending] = useState(true);
 
     useEffect(() => {
         console.log("H2"); // This should log when the component mounts
@@ -30,11 +33,12 @@ const UpdateBlog = () => {
                 .then((response) => response.json())
                 .then((data) => {
                     console.log('Fetched data:', data); // Log the fetched data to see its structure
+                    setIsPending(false);
 
                     // Ensure data is an array
                     const dataArray = Array.isArray(data) ? data : [data];
                     console.log('Converted data to array:', dataArray[0].data);
-
+                    console.log(dataArray[0].data[0]);
                     setBlogs(dataArray[0].data);
 
                     // Update the specific blog
@@ -44,10 +48,10 @@ const UpdateBlog = () => {
                     setTitle(blog.title);
                     setContent(blog.content);
                     setAuthorName(blog.authorName);
-                    setAuthorImg(blog.authorImg);
+                    
                     setImage(blog.image);
 
-                    console.log(blog)
+                    console.log(blog);
                 })
                 .catch((error) => {
                     console.error('Error fetching blogs:', error);
@@ -59,33 +63,38 @@ const UpdateBlog = () => {
 
     const handleSave = async () => {
         const updatedBlog = {
-          id,
-          title,
-          content,
-          authorName,
-          authorImg,
-          image
+            id,
+            title,
+            content,
+            
+            description: blogg.description, // Ensure description is included
+            date_time: blogg.date_time // Ensure date_time is included
         };
+
+        const url = `/api/v1/updateBlogAdmin/${id}`;
+        console.log('PUT request URL:', url); // Log the URL to ensure it's correct
+
         try {
-            const response = await fetch(`/api/v1/updateBlogAdmin/${id}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(updatedBlog)
+            const response = await fetch(url, { // Updated URL with port number
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedBlog)
             });
-      
+
             if (!response.ok) {
-              throw new Error('Failed to update blog');
+                throw new Error('Failed to update blog');
             }
-      
+
             console.log('Blog updated successfully');
             setEditable(false);
-          } catch (error) {
+            window.location.reload()
+        } catch (error) {
             console.error('Error updating blog:', error);
-          }
-        };
-      
+            console.log(updatedBlog)
+        }
+    };
 
     const handleAccept = async (e) => {
         setBlogStatus(true);
@@ -109,7 +118,7 @@ const UpdateBlog = () => {
             console.error('Error updating status:', error);
         }
 
-        navigate('/listofblogs');
+        navigate('/adminpage');
     };
 
     const handleReject = async (e) => {
@@ -134,13 +143,13 @@ const UpdateBlog = () => {
             console.error('Error updating status:', error);
         }
 
-        navigate('/listofblogs');
+        navigate('/adminpage');
     };
-
-    if (!blogg) {
-        return <div>Loading...</div>;
-    }
-
+    
+    const formatDate = (isoString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(isoString).toLocaleDateString(undefined, options);
+    };
     return (
         <>
             <NavBar />
@@ -148,27 +157,60 @@ const UpdateBlog = () => {
                 <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleAccept}>Approve</button>
                 <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleReject}>Reject</button>
             </div>
-            <div className='w-full pb-10 bg-[#f9f9f9]'>
-                <div className='max-w-[1240px] mx-auto'>
-                    <div className='grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 ss:grid-cols-1 gap-8 px-8 sm:pt-20 md:mt-0 ss:pt-20 text-black '>
-                        {/* Blog img and content */}
-                        <div className='col-span-2 bg-white p-8'>
-                            <img className="h-80 w-full object-cover shadow-md" src={blogg.image} alt="Blog Cover" />
-                            <h1 className='font-bold text-2xl my-1 pt-5'>{blogg.title}</h1>
-                            <div className='pt-5'><p>{blogg.content}</p></div>  
-                        </div>
+            <div className='pt-20'>
+                {isPending && <div>Loading....</div>}
+                {!isPending && blogg && (
+                    <div className='w-full  max-w-[1240px] mx-auto '>
+                        
+                        <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-8 px-8 sm:p-10  md:mt-0   justify-center items-center pt-5 pb-5 '>
+                                < div className='col-span-2 p-2  '>
+                                <img className="w-full sm:h-64 md:h-80 lg:h-96 object-contain shadow-md  mb-10" src={blogg.image} alt="Blog Cover" />
+                                    {editable ? (
+                                        <>
+                                            
+                                            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 my-2 border border-grey-600 " />
+                                            <textarea value={content} onChange={(e) => setContent(e.target.value)} className=" break-words w-full rows-10 cols-50 p-4 my-2 h-64 border border-gray-600 rounded-lg"></textarea>
+                                        </>
+                                    ) : (
+                                        <>
+                                            
+                                            <h1 className='font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif'>{blogg.title}</h1>
+                                            <p className='font-normal text-gray-600 mt-5'>by {blogg.author}</p>
+                                            <p className='text-gray-600'>{formatDate(blogg.date_time)}</p>
+                                            <div className='mt-10 font-mono '><p className=' break-words'>{blogg.content}</p></div>
+                                        </>
+                                    )}
+                                </div>
 
-                        {/* author info card */}
-                        <div className='w-full rounded-xl overflow-hidden drop-shadow-md py-5 max-h-[250px] bg-white'>
-                            <div className='px-6 sm:px-10 md:px-14 ss:px-6'>
-                                <img className='p-2 w-32 h-32 rounded-full object-cover mx-auto' src={blogg.authorImg} alt="Author" />
-                                <h1 className='font-bold text-2xl text-center text-gray-900 pt-1'>{blogg.authorName}</h1>
+                                
                             </div>
-                        </div>
+                        
                     </div>
-                </div>
-            </div>
-            <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleReject}>Delete</button>
+                )}
+                 <div className="mt-4 flex justify-center space-x-4">
+            <button
+                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+                onClick={() => setEditable(!editable)}
+            >
+                Edit
+            </button>
+            {editable && (
+                <button
+                    className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+                    onClick={handleSave}
+                >
+                    Save
+                </button>
+            )}
+            <button
+                className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+                onClick={handleReject}
+            >
+                Delete
+            </button>
+        </div>
+        </div>
+        <Footer/>
         </>
     );
 };

@@ -1,0 +1,4 @@
+ <div className='flex justify-between p-20 bg-[#f9f9f9]'>
+                <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleAccept}>Approve</button>
+                <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleReject}>Reject</button>
+            </div>

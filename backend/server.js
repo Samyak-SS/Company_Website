@@ -11,8 +11,8 @@ const port = process.env.PORT || 3000;
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'WebsiteDB',
-    password: 'harshsql',
+    database: 'Quixilinx',
+    password: 'p@ssw0rd',
     port: 5432,
 });
 
