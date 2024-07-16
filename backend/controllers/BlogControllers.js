@@ -1,5 +1,7 @@
 import { pool } from '../server.js';
 
+
+
 // export const sendblogs = async (req, res) => {
 //     try {
 //         const result = await pool.query('SELECT * FROM blog_posts WHERE published = TRUE;');
