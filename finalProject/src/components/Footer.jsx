@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { FaFacebook, FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
-  const [name, setName] = useState("naam");
-  const [email, setEmail] = useState("emailll");
-  const [subject, setSubject] = useState("subjectttt");
-  const [content, setContent] = useState("contentnttt");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [content, setContent] = useState("");
   const [isPending, setIsPending] = useState(false);
 
   const handleMsgSubmit = (e) => {
@@ -13,48 +13,37 @@ const Footer = () => {
     const date_time = new Date().toISOString();
     setIsPending(true);
 
-    const msgData = new FormData();
-    msgData.append('name', name);
-    msgData.append('email', email);
-    msgData.append('subject', subject);
-    msgData.append('content', content);
-    msgData.append('date_time', date_time);
+    const msgData = { name, email, date_time, subject, content };
 
-    const handleMsgSubmit = (e) => {
-      e.preventDefault();
-      const date_time = new Date().toISOString();
-      setIsPending(true);
-  
-      const msgData = { name, email, date_time, subject, content };
-  
-      console.log('Sending data:', msgData);
-  
-      fetch('/api/v1/saveMessage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(msgData),
+    console.log('Sending data:', msgData);
+
+    fetch('/api/v1/saveMessage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(msgData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log('New Msg Added', data);
-          setIsPending(false);
-          setName("");
-          setEmail("");
-          setSubject("");
-          setContent("");
-        })
-        .catch((error) => {
-          console.error('There was a problem with the fetch operation:', error);
-          setIsPending(false);
-        });
-      }}
+      .then((data) => {
+        console.log('New Msg Added', data.data);
+        setIsPending(false);
+        setName("");
+        setEmail("");
+        setSubject("");
+        setContent("");
+      })
+      .catch((error) => {
+        console.error('There was a problem with the fetch operation:', error);
+        setIsPending(false);
+      });
+  }
+
   return (
     <div id="contactUs" className='w-full bg-white text-gray-300 py-8 px-2'>
       <div className='max-w-[1260px] mx-auto flex flex-col md:flex-row py-6 md:p-8'>

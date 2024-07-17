@@ -1,10 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react';
-import NavBar from './components/NavBar';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const ListOfBlogs = () => {
-
     const [blogs, setBlogs] = useState([]);
 
     useEffect(() => {
@@ -12,12 +9,9 @@ const ListOfBlogs = () => {
             fetch("/api/v1/sendblogsAdmin")
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log('Fetched data:', data); // Log the fetched data to see its structure
-
-                    // Ensure data is an array
+                    console.log('Fetched data:', data);
                     const dataArray = Array.isArray(data) ? data : [data];
                     console.log('Converted data to array:', dataArray[0].data);
-
                     setBlogs(dataArray[0].data);
                 })
                 .catch((error) => {
@@ -27,49 +21,30 @@ const ListOfBlogs = () => {
 
         getData();
     }, []);
-  
+
     return (
-    // whole body
-    <> 
-    
-    <h1 className='p-20'>List of blogs</h1>
-    
-    <div className='w-full bg-[#f9f9f9] py-[50px]'>  
-        {/* middle section where blog is present */}
-        <div className='max-w-[1240px] mx-auto '>
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 gap-8 px-4 text-black'>
-                
-                
-                {blogs.map((blog)=>
+        <>
+            <h1 className='p-4 md:p-8 lg:p-12 text-2xl md:text-3xl lg:text-4xl'>List of blogs</h1>
 
-                <Link  key={blog.id} to={`/updateblog/${blog.id}`}>
-                    <div className='bg-white rounded-xl overflow-hidden drop-shadow-md'>
-                    <img className=' h-48 w-full object-cover' src={blog.image} />
-                    <div className='p-8'>
-                        <h3 className='font-bold text-2xl my-1'>{blog.title}</h3>
-
-                        <p className='text-gray-600 text-xl'>{blog.description} </p>
-
+            <div className='w-full bg-gray-100 py-8'>
+                <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+                        {blogs.map((blog) => (
+                            <Link key={blog.id} to={`/updateblog/${blog.id}`}>
+                                <div className='bg-white rounded-xl overflow-hidden shadow-md'>
+                                    <img className='h-48 w-full object-cover' src={blog.image} alt={blog.title} />
+                                    <div className='p-6'>
+                                        <h3 className='font-bold text-xl mb-2'>{blog.title}</h3>
+                                        <p className='text-gray-600 text-lg'>{blog.description}</p>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
-                
-                    </div>
-                </Link>
-
-
-                
-                )}
-
-                
-
-
+                </div>
             </div>
-        </div>
+        </>
+    );
+};
 
-    </div>
-
-    {/* <Link to="/bloghome"><button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded p-8 m-8'>Go Back</button></Link> */}
-    </>
-  )
-}
-
-export default ListOfBlogs;   
+export default ListOfBlogs;

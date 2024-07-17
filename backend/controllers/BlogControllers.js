@@ -312,7 +312,7 @@ export const saveMessage = async (req, res) => {
             return;
         }
         const result = await pool.query(
-            'INSERT INTO messages (name, email, date_time, subject, content) VALUES ($1, $2, $3, $4, $5) RETURNING id',
+            'INSERT INTO messages (name, email, date_time, subject, content) VALUES ($1, $2, $3, $4, $5) RETURNING *',
             [name, email, date_time, subject, content]
         );
         if (!result) {

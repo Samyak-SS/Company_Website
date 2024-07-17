@@ -151,7 +151,7 @@ const UpdateBlog = () => {
         return new Date(isoString).toLocaleDateString(undefined, options);
     };
     return (
-        <>
+        <div className='max-w-[100vw] min-w-[100%] overflow-x-hidden'>
             <NavBar />
             <div className='flex justify-between p-20 bg-[#f9f9f9]'>
                 <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleAccept}>Approve</button>
@@ -164,7 +164,7 @@ const UpdateBlog = () => {
                         
                         <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-8 px-8 sm:p-10  md:mt-0   justify-center items-center pt-5 pb-5 '>
                                 < div className='col-span-2 p-2  '>
-                                <img className="w-full sm:h-64 md:h-80 lg:h-96 object-contain shadow-md  mb-10" src={blogg.image} alt="Blog Cover" />
+                                <img className="w-[50%] sm:h-64 md:h-80 lg:h-96 object-contain shadow-md  mb-10" src={blogg.image} alt="Blog Cover" />
                                     {editable ? (
                                         <>
                                             
@@ -177,7 +177,7 @@ const UpdateBlog = () => {
                                             <h1 className='font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif'>{blogg.title}</h1>
                                             <p className='font-normal text-gray-600 mt-5'>by {blogg.author}</p>
                                             <p className='text-gray-600'>{formatDate(blogg.date_time)}</p>
-                                            <div className='mt-10 font-mono '><p className=' break-words'>{blogg.content}</p></div>
+                                            <p className=' break-words mt-10 font-mono max-w-[90%] '>{blogg.content}</p>
                                         </>
                                     )}
                                 </div>
@@ -211,7 +211,7 @@ const UpdateBlog = () => {
         </div>
         </div>
         <Footer/>
-        </>
+        </div>
     );
 };
 

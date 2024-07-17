@@ -151,16 +151,16 @@ const UpdateBlog2 = () => {
         return new Date(isoString).toLocaleDateString(undefined, options);
     };
     return (
-        <>
+        <div className='max-w-[100vw] min-w-[100%] overflow-x-hidden'>
             <NavBar />
             <div className='pt-20'>
                 {isPending && <div>Loading....</div>}
                 {!isPending && blogg && (
-                    <div className='w-full  max-w-[1240px] mx-auto '>
+                    <div className='w-[100vh]  max-w-[100%] mx-auto '>
                         
                         <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 ss:grid-cols-1 gap-8 px-8 sm:p-10  md:mt-0 ss:p-10 text-black justify-center items-center pt-5 pb-5 '>
                                 < div className='col-span-2 p-2 '>
-                                <img className="w-full sm:h-64 md:h-80 lg:h-96 object-cover shadow-md bg-black mb-10" src={blogg.image} alt="Blog Cover" />
+                                    <img className="max-w-[90vw] h-[60vh] md:h-80 lg:h-96 object-cover shadow-md bg-black mb-10" src={blogg.image} alt="Blog Cover" />
                                     {editable ? (
                                         <>
                                             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 my-2 border    border-gray-600 " />
@@ -205,7 +205,7 @@ const UpdateBlog2 = () => {
         </div>
         </div>
         <Footer/>
-        </>
+        </div>
     );
 };
 

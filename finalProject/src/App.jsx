@@ -11,6 +11,7 @@ import BlogImages from './blogImage';
 import BlogsForAdmin from './BlogsForAdmin';
 import UpdateBlog from './UpdateBlog';
 import UpdateBlog2 from './UpdateBlog2';
+import ShowMsg from './ShowMsg';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/adminpage" element={<AdminPage />} />        
         <Route path="/updateblog/:id" element={<UpdateBlog />} />    
         <Route path="/updateblog2/:id" element={<UpdateBlog2 />} />    
+        <Route path='/showmsg' element={<ShowMsg/>}>  </Route>
         {/* <Route path="/blogsforadmin" element={<BlogsForAdmin />} />         */}
       </Routes>
     </>

@@ -28,7 +28,7 @@ const BlogRoutes = (upload) => {
     router.route("/sendblogsAdmin").get(sendblogsAdmin);
     router.route("/blogsAdminBoolean").post(blogsAdminBoolean);
     router.route("/login").post(Login);
-    router.route("/showMessages").post(showMessages);
+    router.route("/showMessages").get(showMessages);
     // router.route("/updateBlogAdmin").post(updateBlogAdmin);
     router.route("/updateBlogAdmin/:id").put(updateBlogAdmin);
     router.route("/saveMessage").post(saveMessage);
