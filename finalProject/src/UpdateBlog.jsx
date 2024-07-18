@@ -151,41 +151,40 @@ const UpdateBlog = () => {
         return new Date(isoString).toLocaleDateString(undefined, options);
     };
     return (
+        
         <div className='max-w-[100vw] min-w-[100%] overflow-x-hidden'>
             <NavBar />
             <div className='flex justify-between p-20 bg-[#f9f9f9]'>
                 <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleAccept}>Approve</button>
                 <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleReject}>Reject</button>
             </div>
-            <div className='pt-20'>
+            <div className='pt-20 w-[100vw]  max-w-[100%] mx-auto'>
                 {isPending && <div>Loading....</div>}
                 {!isPending && blogg && (
-                    <div className='w-full  max-w-[1240px] mx-auto '>
+                      
                         
-                        <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-8 px-8 sm:p-10  md:mt-0   justify-center items-center pt-5 pb-5 '>
-                                < div className='col-span-2 p-2  '>
-                                <img className="w-[50%] sm:h-64 md:h-80 lg:h-96 object-contain shadow-md  mb-10" src={blogg.image} alt="Blog Cover" />
-                                    {editable ? (
-                                        <>
-                                            
-                                            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 my-2 border border-grey-600 " />
-                                            <textarea value={content} onChange={(e) => setContent(e.target.value)} className=" break-words w-full rows-10 cols-50 p-4 my-2 h-64 border border-gray-600 rounded-lg"></textarea>
-                                        </>
-                                    ) : (
-                                        <>
-                                            
-                                            <h1 className='font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif'>{blogg.title}</h1>
-                                            <p className='font-normal text-gray-600 mt-5'>by {blogg.author}</p>
-                                            <p className='text-gray-600'>{formatDate(blogg.date_time)}</p>
-                                            <p className=' break-words mt-10 font-mono max-w-[90%] '>{blogg.content}</p>
-                                        </>
-                                    )}
-                                </div>
+                      <div className='grid   grid-cols-2  gap-8 px-8 sm:p-10  md:mt-0 ss:p-10 text-black justify-center items-center pt-5 pb-5 '>
+                              < div className='col-span-2 p-2 '>
+                                  <img className="max-w-[90vw] w-[80vw] md:w-[90vw] h-[60vh]  border-black border-2 object-contain shadow-md bg-black mb-10" src={blogg.image} alt="Blog Cover" />
+                                  {editable ? (
+                                      <>
+                                          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 my-2 border    border-gray-600 " />
+                                          <textarea value={content} onChange={(e) => setContent(e.target.value)} className="w-full rows-10 cols-50 p-4 my-2 h-64 border border-gray-600 rounded-lg"></textarea>
+                                      </>
+                                  ) : (
+                                      <>
+                                          <h1 className='font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif'>{blogg.title}</h1>
+                                          <p className='font-normal text-gray-600 mt-5'>by {blogg.author}</p>
+                                          <p className='text-gray-600'>{formatDate(blogg.date_time)}</p>
+                                          <div className='mt-10 font-mono '><p className='whitespace-pre-wrap break-words max-w-[90vw] w-[80vw] md:w-[90vw] h-[60vh]'>{blogg.content}</p></div>
+                                      </>
+                                  )}
+                              </div>
 
-                                
-                            </div>
-                        
-                    </div>
+                              
+                          </div>
+                      
+                  
                 )}
                  <div className="mt-4 flex justify-center space-x-4">
             <button
@@ -210,8 +209,10 @@ const UpdateBlog = () => {
             </button>
         </div>
         </div>
-        <Footer/>
+        
         </div>
+       
+        
     );
 };
 

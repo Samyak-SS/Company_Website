@@ -189,7 +189,7 @@ const Create = () => {
             />
 
             {!isPending ? (
-              <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded'>
+              <button className='bg-[#fb2576]  border-[#fb2576]  hover:bg-[#e11f6a] hover:text-black text-white font-bold py-2 px-4 rounded'>
                 Add Blog
               </button>
             ) : (

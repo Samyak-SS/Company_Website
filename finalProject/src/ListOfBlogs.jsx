@@ -24,9 +24,9 @@ const ListOfBlogs = () => {
 
     return (
         <>
-            <h1 className='p-4 md:p-8 lg:p-12 text-2xl md:text-3xl lg:text-4xl'>List of blogs</h1>
+            <h1 className='p-4 md:p-8 lg:p-12 text-2xl md:text-3xl lg:text-4xl'>Unapproved Blogs</h1>
 
-            <div className='w-full bg-gray-100 py-8'>
+            <div className='w-full  py-8'>
                 <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
                         {blogs.map((blog) => (

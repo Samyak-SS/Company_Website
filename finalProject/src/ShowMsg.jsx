@@ -27,11 +27,11 @@ const ShowMsg = () => {
   }, []);
 
   return (
-    <div className='bg-yellow-200 max-w-full mx-auto'>
+    <div className=' max-w-full mx-auto'>
       {error && <p>Error fetching messages: {error.message}</p>}
       {!error && messages.length === 0 && <p>No messages available.</p>}
       {messages.length > 0 && (
-        <div className='max-w-[1240px] mx-auto bg-blue-300 p-10 flex flex-col'>
+        <div className='max-w-[1240px] mx-auto  p-10 flex flex-col'>
           {messages.map((msg) => (
             <div key={msg.id} className='bg-white p-4 rounded-lg shadow-lg mb-4'>
               <p><strong>Name:</strong> {msg.name}</p>

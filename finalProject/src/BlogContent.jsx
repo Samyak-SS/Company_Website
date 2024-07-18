@@ -47,20 +47,21 @@ const BlogContent = () => {
   }
 
   return (
-    <>
+    <div className='max-w-[100vw] min-w-[100%] overflow-x-hidden'>
     <NavBar/>
     <br></br><br /><br />
-    <div className='w-full pb-20 bg-[#f9f9f9]'>
-      <div className='max-w-[1240px] mx-auto'>
-      <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 ss:grid-cols-1 gap-8 px-8 sm:p-10  md:mt-0 ss:p-10 text-black justify-center items-center pt-5 pb-5 '>
+    <div className='pt-20 w-[100vw]  max-w-[100%] mx-auto'>
+      <div className=''>
+      <div className='grid   grid-cols-2  gap-8 px-8 sm:p-10  md:mt-0 ss:p-10 text-black justify-center items-center pt-5 pb-5 '>
           {/* Blog img and content */}
           < div className='col-span-2 p-2 '>
             {/* height is set to auto might need to change */}
-            <img className="w-full sm:h-64 md:h-80 lg:h-96 object-cover shadow-md bg-black mb-10" src={blog.image} alt={blog.title} />
+            <img className="max-w-[90vw] w-[80vw] md:w-[90vw] h-[60vh]  border-black border-2 object-contain shadow-md bg-black mb-10" src={blog.image} alt={blog.title} />
             <h1 className='font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif'>{blog.title}</h1>
+            
             <p className='font-normal text-gray-600 mt-5'>by {blog.author}</p>
             <p className='text-gray-600'>{formatDate(blog.date_time)}</p>
-            <div className='mt-10 font-mono '><p className='whitespace-pre-wrap break-words'>{blog.content}</p></div>
+            <div className='mt-10 font-mono '><p className='whitespace-pre-wrap break-words max-w-[90vw] w-[80vw] md:w-[90vw] h-[60vh]'>{blog.content}</p></div>
           </div>
 
           {/* author info card */}
@@ -68,8 +69,9 @@ const BlogContent = () => {
         </div>
       </div>
     </div>
-    <Footer/>
-    </>
+    
+    </div>
+    
   );
 }
 

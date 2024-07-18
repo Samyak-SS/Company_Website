@@ -153,14 +153,14 @@ const UpdateBlog2 = () => {
     return (
         <div className='max-w-[100vw] min-w-[100%] overflow-x-hidden'>
             <NavBar />
-            <div className='pt-20'>
+            <div className='pt-20 w-[100vw]  max-w-[100%] mx-auto'>
                 {isPending && <div>Loading....</div>}
                 {!isPending && blogg && (
-                    <div className='w-[100vh]  max-w-[100%] mx-auto '>
+                    <div className=' '>
                         
-                        <div className='grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 ss:grid-cols-1 gap-8 px-8 sm:p-10  md:mt-0 ss:p-10 text-black justify-center items-center pt-5 pb-5 '>
+                        <div className='grid   grid-cols-2  gap-8 px-8 sm:p-10  md:mt-0 ss:p-10 text-black justify-center items-center pt-5 pb-5 '>
                                 < div className='col-span-2 p-2 '>
-                                    <img className="max-w-[90vw] h-[60vh] md:h-80 lg:h-96 object-cover shadow-md bg-black mb-10" src={blogg.image} alt="Blog Cover" />
+                                    <img className="max-w-[90vw] w-[80vw] md:w-[90vw] h-[60vh]  border-black border-2 object-contain shadow-md bg-black mb-10" src={blogg.image} alt="Blog Cover" />
                                     {editable ? (
                                         <>
                                             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 my-2 border    border-gray-600 " />
@@ -171,10 +171,10 @@ const UpdateBlog2 = () => {
                                             <h1 className='font-normal text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif'>{blogg.title}</h1>
                                             <p className='font-normal text-gray-600 mt-5'>by {blogg.author}</p>
                                             <p className='text-gray-600'>{formatDate(blogg.date_time)}</p>
-                                            <div className='mt-10 font-mono '><p className='whitespace-pre-wrap break-words'>{blogg.content}</p></div>
+                                            <div className='mt-10 font-mono '><p className='whitespace-pre-wrap break-words max-w-[90vw] w-[80vw] md:w-[90vw] h-[60vh]'>{blogg.content}</p></div>
                                         </>
                                     )}
-                                </div>
+                                </div>  
 
                                 
                             </div>
@@ -204,7 +204,7 @@ const UpdateBlog2 = () => {
             </button>
         </div>
         </div>
-        <Footer/>
+        
         </div>
     );
 };
