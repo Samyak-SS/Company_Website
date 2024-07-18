@@ -47,6 +47,7 @@ const BlogContent = () => {
   }
 
   return (
+    <>
     <div className='max-w-[100vw] min-w-[100%] overflow-x-hidden'>
     <NavBar/>
     <br></br><br /><br />
@@ -71,7 +72,8 @@ const BlogContent = () => {
     </div>
     
     </div>
-    
+    <Footer/>
+    </>
   );
 }
 

@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 
 const FinalMainPage = () => {
   return (
-    <div>
+    <div className='bg-black lg:bg-white'>
       <div id='mainpage'>
         <NavBar />
         <div className='pt-20'>

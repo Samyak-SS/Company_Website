@@ -151,7 +151,7 @@ const UpdateBlog = () => {
         return new Date(isoString).toLocaleDateString(undefined, options);
     };
     return (
-        
+        <>
         <div className='max-w-[100vw] min-w-[100%] overflow-x-hidden'>
             <NavBar />
             <div className='flex justify-between p-20 bg-[#f9f9f9]'>
@@ -170,6 +170,7 @@ const UpdateBlog = () => {
                                       <>
                                           <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full p-2 my-2 border    border-gray-600 " />
                                           <textarea value={content} onChange={(e) => setContent(e.target.value)} className="w-full rows-10 cols-50 p-4 my-2 h-64 border border-gray-600 rounded-lg"></textarea>
+                                      
                                       </>
                                   ) : (
                                       <>
@@ -182,12 +183,17 @@ const UpdateBlog = () => {
                               </div>
 
                               
-                          </div>
+                        </div>
                       
                   
                 )}
-                 <div className="mt-4 flex justify-center space-x-4">
-            <button
+            </div>
+                 
+        
+        
+        </div>
+        <div className="mt-4 flex justify-center space-x-4">
+                 <button
                 className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
                 onClick={() => setEditable(!editable)}
             >
@@ -208,9 +214,7 @@ const UpdateBlog = () => {
                 Delete
             </button>
         </div>
-        </div>
-        
-        </div>
+        </>
        
         
     );

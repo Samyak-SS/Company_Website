@@ -151,6 +151,7 @@ const UpdateBlog2 = () => {
         return new Date(isoString).toLocaleDateString(undefined, options);
     };
     return (
+        <>
         <div className='max-w-[100vw] min-w-[100%] overflow-x-hidden'>
             <NavBar />
             <div className='pt-20 w-[100vw]  max-w-[100%] mx-auto'>
@@ -181,31 +182,33 @@ const UpdateBlog2 = () => {
                         
                     </div>
                 )}
-                 <div className="mt-4 flex justify-center space-x-4">
-            <button
-                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
-                onClick={() => setEditable(!editable)}
-            >
-                Edit
-            </button>
-            {editable && (
-                <button
-                    className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
-                    onClick={handleSave}
-                >
-                    Save
-                </button>
-            )}
-            <button
-                className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
-                onClick={handleReject}
-            >
-                Delete
-            </button>
-        </div>
+                 
         </div>
         
         </div>
+        <div className="mt-4 flex justify-center space-x-4">
+        <button
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+            onClick={() => setEditable(!editable)}
+        >
+            Edit
+        </button>
+        {editable && (
+            <button
+                className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+                onClick={handleSave}
+            >
+                Save
+            </button>
+        )}
+        <button
+            className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow-md'
+            onClick={handleReject}
+        >
+            Delete
+        </button>
+    </div>
+        </>
     );
 };
 
