@@ -270,16 +270,28 @@ export const takeblog = async (req, res) => {
 export const updateBlogAdmin = async (req, res) => {
     try {
         const { id } = req.params; // Extract id from req.params
-        const { title, content, description,image, author, date_time } = req.body;
-        if (!id || !title  || !content || !description || !date_time) {
-            return res.status(400).json({
-                success: false,
-                message: 'All fields are required'
-            });
+        const { title, content, description,author, date_time } = req.body;
+        let image;
+        if(req.file.buffer){
+            image = req.file.buffer ;
         }
+        // const {image} = req.body ;
+        console.log(req.file.buffer)
+        
+
+        if(!image){
+            return res.json({message:"image not found"})
+        }
+        console.log(image)
+        // if (!id || !title  || !content || !description || !date_time || !image||!author ) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: 'All fields are required'
+        //     });
+        // }
         const result = await pool.query(
-            'UPDATE blog_posts SET title = $1,  date_time = $2, content = $3, description = $4 WHERE id = $5 RETURNING *',
-            [title,date_time, content, description, id]
+            'UPDATE blog_posts SET title = $1, image = $2, date_time = $3, content = $4, description = $5, author=$6 WHERE id = $7 RETURNING *',
+            [title, image ,date_time, content, description,author, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -296,7 +308,7 @@ export const updateBlogAdmin = async (req, res) => {
         console.log(error);
         res.status(500).json({
             success: false,
-            message: 'Error updating blog post',
+            message: error.message,
             error
         });
     }

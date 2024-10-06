@@ -30,9 +30,10 @@ const BlogRoutes = (upload) => {
     router.route("/login").post(Login);
     router.route("/showMessages").get(showMessages);
     // router.route("/updateBlogAdmin").post(updateBlogAdmin);
-    router.route("/updateBlogAdmin/:id").put(updateBlogAdmin);
+    router.route("/updateBlogAdmin/:id").put(upload.single('image'), updateBlogAdmin);
     router.route("/saveMessage").post(saveMessage);
     router.route("/fetchBlogImages").get(fetchBlogImages);
+    
 
     return router;
 };
