@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import NavBar from './components/NavBar';
 
 const BlogInspect = () => {
   const { id } = useParams();
@@ -89,17 +90,20 @@ const BlogInspect = () => {
 
   return (
     <>
-      <div className='flex justify-between p-5 bg-[#f9f9f9]'>
+      <NavBar/>
+      <div className='flex justify-between p-20 bg-[#f9f9f9]'>
+        
         <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleAccept}>Approve</button>
         <button className='bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded' onClick={handleReject}>Reject</button>
       </div>
       <div className='w-full pb-10 bg-[#f9f9f9]'>
+      
         <div className='max-w-[1240px] mx-auto'>
           <div className='grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 ss:grid-cols-1 gap-8 px-8 sm:pt-20 md:mt-0 ss:pt-20 text-black '>
             {/* Blog img and content */}
             <div className='col-span-2 bg-white p-8'>
               {/* height is set to auto might need to change */}
-              <img className="h-auto w-full object-cover shadow-md" src={blog.coverImg} alt="Blog Cover" />
+              <img className="h-80 w-full object-cover shadow-md" src={blog.image} alt="Blog Cover" />
               <h1 className='font-bold text-2xl my-1 pt-5'>{blog.title}</h1>
               <div className='pt-5'><p>{blog.content}</p></div>
             </div>
